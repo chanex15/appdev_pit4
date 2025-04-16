@@ -10,23 +10,25 @@ import crud
 import database
 import logging
 
-# Enable logging to show messages from crud.py
 logging.basicConfig(level=logging.INFO)
 
-# Create DB tables
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
 
-# CORS setup (make sure frontend is allowed to call backend)
+origins = [
+    "https://appdev-pit4.onrender.com",
+    "http://localhost:5173",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Serve React build (assuming your build is in /static)
 app.mount("/static", StaticFiles(directory="static", html=True), name="static")
 
 @app.get("/")
@@ -34,7 +36,6 @@ def serve_react_app():
     index_path = os.path.join("static", "index.html")
     return FileResponse(index_path)
 
-# Dependency to get DB session
 def get_db():
     db = database.SessionLocal()
     try:
