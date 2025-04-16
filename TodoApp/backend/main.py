@@ -3,16 +3,22 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
+import os
 import models
 import schemas
 import crud
 import database
-import os
+import logging
 
+# Enable logging to show messages from crud.py
+logging.basicConfig(level=logging.INFO)
+
+# Create DB tables
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
 
+# CORS setup (make sure frontend is allowed to call backend)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -20,6 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Serve React build (assuming your build is in /static)
 app.mount("/static", StaticFiles(directory="static", html=True), name="static")
 
 @app.get("/")
@@ -27,6 +34,7 @@ def serve_react_app():
     index_path = os.path.join("static", "index.html")
     return FileResponse(index_path)
 
+# Dependency to get DB session
 def get_db():
     db = database.SessionLocal()
     try:
@@ -47,6 +55,7 @@ def read_todo(todo_id: int, db: Session = Depends(get_db)):
 
 @app.post("/todos", response_model=schemas.TodoRead)
 def create_todo(todo: schemas.TodoCreate, db: Session = Depends(get_db)):
+    print("🔔 Received POST request to create todo:", todo)
     return crud.create_todo(db, todo)
 
 @app.put("/todos/{todo_id}", response_model=schemas.TodoRead)

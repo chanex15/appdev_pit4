@@ -37,7 +37,7 @@ export default function TodoList() {
   };
 
   const removeTask = (id) => {
-    axios.delete(`${API_URL}${id}/`)
+    axios.delete(`${API_URL}/${id}`)
       .then(() => setTasks(tasks.filter((task) => task.id !== id)))
       .catch((error) => console.error("Error deleting task:", error));
   };
@@ -46,7 +46,7 @@ export default function TodoList() {
     const taskToUpdate = tasks.find((task) => task.id === id);
     if (!taskToUpdate) return;
 
-    axios.put(`${API_URL}${id}/`, {
+    axios.put(`${API_URL}/${id}`, {
       title: taskToUpdate.title,
       completed: !taskToUpdate.completed
     })
@@ -65,7 +65,7 @@ export default function TodoList() {
     const taskToUpdate = tasks.find((task) => task.id === id);
     if (!taskToUpdate) return;
 
-    axios.put(`${API_URL}${id}/`, {
+    axios.put(`${API_URL}/${id}`, {
       title: editText,
       completed: taskToUpdate.completed
     })
