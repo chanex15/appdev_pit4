@@ -1,10 +1,13 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 import models
 import schemas
 import crud
 import database
+import os
 
 models.Base.metadata.create_all(bind=database.engine)
 
@@ -16,6 +19,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.mount("/static", StaticFiles(directory="static", html=True), name="static")
+
+@app.get("/")
+def serve_react_app():
+    index_path = os.path.join("static", "index.html")
+    return FileResponse(index_path)
 
 def get_db():
     db = database.SessionLocal()
