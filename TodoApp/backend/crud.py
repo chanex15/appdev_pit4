@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
-from . import models, schemas
+import models
+import schemas
+from database import SessionLocal
 
 def get_todos(db: Session):
     return db.query(models.Todo).all()
