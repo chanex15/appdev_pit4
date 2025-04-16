@@ -6,8 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
-SQLALCHEMY_DATABASE_URL = "postgresql://pit4db_user:wTz0uYm22dOAOx512qiEbpg0ZeLJPbFG@dpg-cvvgd03uibrs73beebh0-a.virginia-postgres.render.com/pit4db"
+SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
