@@ -83,9 +83,6 @@ export default function TodoList() {
     <div className="app-container">
       <header>
         <h1>📋 My Tasks</h1>
-        <button className="dark-mode-toggle" onClick={() => setDarkMode(!darkMode)}>
-          {darkMode ? "🌞" : "🌙"}
-        </button>
       </header>
 
       <div className="todo-input">
@@ -95,7 +92,6 @@ export default function TodoList() {
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
-        <button onClick={addTask}>➕</button>
       </div>
 
       <div className="filters">
@@ -103,6 +99,8 @@ export default function TodoList() {
         <button onClick={() => setFilter("completed")}>Completed</button>
         <button onClick={() => setFilter("pending")}>Pending</button>
       </div>
+
+      <button className="add-task-btn" onClick={addTask}>➕ Add Task</button>
 
       <ul className="todo-list">
         {filteredTasks.map((task) => (
@@ -135,6 +133,10 @@ export default function TodoList() {
           </li>
         ))}
       </ul>
+
+      <button className="dark-mode-toggle" onClick={() => setDarkMode(!darkMode)}>
+        {darkMode ? "🌞" : "🌙"} Dark Mode
+      </button>
     </div>
   );
 }
