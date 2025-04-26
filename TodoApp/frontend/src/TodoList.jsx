@@ -82,16 +82,16 @@ export default function TodoList() {
   return (
     <div className="app-container">
       <header>
-        <h1>📝 My Tasks</h1>
+        <h1>📋 My Tasks</h1>
         <button className="dark-mode-toggle" onClick={() => setDarkMode(!darkMode)}>
-          {darkMode ? "☀️" : "🌙"}
+          {darkMode ? "🌞" : "🌙"}
         </button>
       </header>
 
       <div className="todo-input">
         <input
           type="text"
-          placeholder="Add a new task..."
+          placeholder="Add a task..."
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
