@@ -26,12 +26,9 @@ export default function TodoList() {
   const addTask = () => {
     if (task.trim() === "") return;
 
-    axios.post(API_URL, {
-      title: task,
-      completed: false
-    })
-    .then((response) => setTasks([...tasks, response.data]))
-    .catch((error) => console.error("Error adding task:", error));
+    axios.post(API_URL, { title: task, completed: false })
+      .then((response) => setTasks([...tasks, response.data]))
+      .catch((error) => console.error("Error adding task:", error));
 
     setTask("");
   };
@@ -84,25 +81,27 @@ export default function TodoList() {
 
   return (
     <div className="app-container">
-      <h2>📋 To-Do List (FastAPI Version)</h2>
-      <button className="dark-mode-toggle" onClick={() => setDarkMode(!darkMode)}>
-        {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
-      </button>
+      <header>
+        <h1>📝 My Tasks</h1>
+        <button className="dark-mode-toggle" onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? "☀️" : "🌙"}
+        </button>
+      </header>
 
       <div className="todo-input">
         <input
           type="text"
-          placeholder="What needs to be done?"
+          placeholder="Add a new task..."
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
-        <button onClick={addTask}>➕ Add</button>
+        <button onClick={addTask}>➕</button>
       </div>
 
       <div className="filters">
         <button onClick={() => setFilter("all")}>All</button>
-        <button onClick={() => setFilter("completed")}>✅ Completed</button>
-        <button onClick={() => setFilter("pending")}>⏳ Pending</button>
+        <button onClick={() => setFilter("completed")}>Completed</button>
+        <button onClick={() => setFilter("pending")}>Pending</button>
       </div>
 
       <ul className="todo-list">
@@ -115,17 +114,19 @@ export default function TodoList() {
                   value={editText}
                   onChange={(e) => setEditText(e.target.value)}
                 />
-                <button onClick={() => saveEdit(task.id)}>💾 Save</button>
+                <button className="save-btn" onClick={() => saveEdit(task.id)}>💾</button>
               </>
             ) : (
               <>
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => toggleComplete(task.id)}
-                />
-                <span>{task.title}</span>
-                <div className="task-buttons">
+                <div className="task-content" onClick={() => toggleComplete(task.id)}>
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => toggleComplete(task.id)}
+                  />
+                  <span>{task.title}</span>
+                </div>
+                <div className="task-actions">
                   <button onClick={() => startEditing(task.id, task.title)}>✏️</button>
                   <button onClick={() => removeTask(task.id)}>❌</button>
                 </div>
