@@ -4,7 +4,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #e4e5e7;
+  background: #f4f6f7;
   margin: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -23,7 +23,7 @@ body {
 
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -33,21 +33,13 @@ h1 {
   color: #333;
 }
 
-.dark-mode-toggle {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: inherit;
-}
-
 .todo-input {
   display: flex;
-  gap: 15px;
+  justify-content: center;
 }
 
 .todo-input input {
-  flex: 1;
+  width: 80%;
   padding: 12px 18px;
   border: 2px solid #ddd;
   border-radius: 12px;
@@ -57,21 +49,7 @@ h1 {
 }
 
 .todo-input input:focus {
-  border-color: #007bff;
-}
-
-.todo-input button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 12px 16px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.todo-input button:hover {
-  background-color: #0056b3;
+  border-color: #1abc9c;
 }
 
 .filters {
@@ -90,7 +68,23 @@ h1 {
 }
 
 .filters button:hover {
-  background: #dcdcdc;
+  background: #e0e0e0;
+}
+
+.add-task-btn {
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+  align-self: center;
+}
+
+.add-task-btn:hover {
+  background-color: #16a085;
 }
 
 ul.todo-list {
@@ -148,33 +142,33 @@ ul.todo-list {
 }
 
 .dark {
-  background-color: #181818;
-  color: #e4e5e7;
+  background-color: #2d3436;
+  color: #f4f6f7;
 }
 
 .dark .app-container {
-  background: #242526;
+  background: #34495e;
 }
 
 .dark .todo-input input {
-  background: #3a3b3c;
+  background: #2d3436;
   border: 1px solid #555;
   color: white;
 }
 
 .dark .todo-input button {
-  background-color: #0d6efd;
+  background-color: #1abc9c;
 }
 
 .dark .filters button {
-  background: #3a3b3c;
+  background: #2d3436;
   color: white;
 }
 
 .dark .todo-list li {
-  background: #3a3b3c;
+  background: #2d3436;
 }
 
 .dark .todo-list li:hover {
-  background: #4e4f50;
+  background: #34495e;
 }
